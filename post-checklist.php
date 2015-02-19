@@ -32,27 +32,17 @@ function action_admin_enqueue_scripts( $hook ) {
 		'nonce' => wp_create_nonce( 'wp_json' ),
 	) );
 
-	/**
-	 * Register items using the fpc_items filter.
-	 * Required args
-	 * - label - item description.
-	 * - test - a JS function that will be called
-	 */
-	$items = array_map(
-		function( $args ) {
-			return wp_parse_args( $args, array(
-				'label' => '',
-				'test'  => '',
-			) );
-		},
-		apply_filters( 'fpc_items', array() )
-	);
-
 	wp_localize_script(
 		'fpc',
 		'fusionPostChecklistData',
 		array(
-			'items' => $items,
+			/**
+			 * Register items using the fpc_items filter.
+			 * Required args
+			 * - label - item description.
+			 * - test - a JS function that will be called
+			 */
+			'items'   => apply_filters( 'fpc_items', array() ),
 			'strings' => array(
 				'title' => __( 'Post Publish Checklist', 'fpc' ),
 			),

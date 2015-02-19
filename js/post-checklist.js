@@ -21,7 +21,8 @@
 		defaults: {
 			label:  '',
 			test: null,
-			status: 'unknown', // expects bool or string.
+			status: null, // expects bool or string.
+			blocker: true,
 		},
 
 		initialize: function() {
@@ -75,6 +76,16 @@
 			this.model.get('items').each( function( item ) {
 				t.views.add( 'ul', new self.views.item( { model: item } ) );
 			} );
+
+			var blockers = this.model.get('items').filter( function( item ) {
+				return item.get('blocker') && item.get('status') !== true;
+			});
+
+			if ( blockers.length > 0 ) {
+				$('#publish').prop( 'disabled', true );
+			} else {
+				$('#publish').prop( 'disabled', false );
+			}
 
 			return this;
 

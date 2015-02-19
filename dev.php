@@ -6,7 +6,7 @@
 add_filter( 'fpc_items', function( $items ) {
 
 	$items[] = array(
-		'label' => 'Has at least 3 narratives.',
+		'label' => 'Has at least 3 terms.',
 		'test'  => 'fpcTestNarratives',
 	);
 
@@ -16,8 +16,9 @@ add_filter( 'fpc_items', function( $items ) {
 	);
 
 	$items[] = array(
-		'label' => 'Content between 500 and 1500 words.',
-		'test'  => 'fpcTestContentLength',
+		'label'   => 'Content between 500 and 1500 words.',
+		'test'    => 'fpcTestContentLength',
+		// 'blocker' => false,
 	);
 
 	return $items;
@@ -42,7 +43,7 @@ add_action( 'fpc_scripts', function() {
 			count += terms[tax].length;
 		}
 
-		return count > 3;
+		return count >= 3;
 
 	}
 

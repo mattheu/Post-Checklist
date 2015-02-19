@@ -249,25 +249,32 @@
 		var updateTerms = function() {
 
 			var $field = $(this);
-			var terms = _.clone( self.post.get( 'terms' ) );
-			var tax   = $field.attr('name').match(/fusion_taxonomies\[(.+)\]/)[1];
-			var val   = $field.val();
-			if ( val )  {
+			var terms  = _.clone( self.post.get( 'terms' ) );
+			var tax    = $field.attr('name').match(/fusion_taxonomies\[(.+)\]/)[1];
+			var val    = $field.val();
+
+			if ( val ) {
 				terms[tax] = val.split(',').map( function(s) { return s.trim() } );
-				self.post.set( 'terms', terms );
-		 	}
+			} else {
+				terms[tax] = [];
+			}
+
+			self.post.set( 'terms', terms );
+
 		};
 
-		var $fields = $('[name^=fusion_taxonomies]' );
-		$fields.each( updateTerms );
-		$fields.on( 'change', updateTerms );
+		$('[name^=fusion_taxonomies]' ).each( function() {
+			updateTerms.call( this );
+			$(this).on( 'change', updateTerms );
+		})
 
 	}
 
-
 	$(document).ready( function() {
 
-		self.init();
+		window.setTimeout( function() {
+			self.init();
+		}, 100 );
 
 		// self.post.on('change', function() {
 		// 	console.log( self.post.toJSON() );
