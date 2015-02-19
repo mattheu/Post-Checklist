@@ -1,3 +1,0 @@
-[submodule "wp-api-client-js"]
-	path = wp-api-client-js
-	url = https://github.com/WP-API/client-js.git
