@@ -1,0 +1,73 @@
+
+.fpc .fpc-heading {
+	margin: 0 0 8px 0;
+}
+
+.fpc .fpc-list {
+	margin: 8px 0;
+	list-style: none;
+}
+
+.fpc .fpc-list-item {
+	padding-left: 23px;
+}
+
+.fpc .fpc-status-indicator {
+	background: #999;
+	display: inline-block;
+	width: 16px;
+	margin-left: -23px;
+	float: left;
+	text-align: center;
+	color: #FFF;
+	height: 16px;
+	line-height: 16px;
+	border-radius: 2px;
+	position: relative;
+	top: 1px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.fpc .fpc-list-item .fpc-status-indicator:before {
+	font-family: dashicons;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 16px;
+	text-align: center;
+	text-indent: 0;
+	font-size: 16px;
+	line-height: 14px;
+}
+
+.fpc .fpc-list-item:not(.fpc-status-false):not(.fpc-status-true) .fpc-status-indicator:before {
+	content: "\3f";
+	font-size: 12px;
+	font-weight: bold;
+	font-family: arial;
+	top: 2px;
+}
+
+.fpc .fpc-list-item.fpc-status-false .fpc-status-indicator {
+	background: #DD3D36;
+}
+
+.fpc .fpc-list-item.fpc-status-false .fpc-status-indicator:before {
+	content: "\f335";
+	top: 1px;
+}
+
+.fpc .fpc-list-item.fpc-status-true .fpc-status-indicator {
+	background: #7AD03A;
+	top: 1px;
+}
+
+.fpc .fpc-list-item.fpc-status-true .fpc-status-indicator:before {
+	content: "\f147";
+	top: 1px;
+}
+
+.fm-tab .dashicons {
+	margin-bottom: -2px;
