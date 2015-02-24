@@ -31,13 +31,9 @@
 		},
 
 		updateStatus: function() {
-
-			var testFunc = window[ this.get('test') ];
-			if ( typeof testFunc === 'function' ) {
-    			var status = testFunc( post );
-    			this.set( 'status', status );
-			}
-
+			var test = this.get('test');
+			var status = test( post );
+    		this.set( 'status', status );
 		}
 
 	});
@@ -125,19 +121,18 @@
 		}
 	});
 
+
+	var checklistItems = new self.collections.items( fusionPostChecklistData.items );
+	var checklistModel = new self.models.checklist( { items: checklistItems } );
+	var checklistView  = new self.views.checklist( { model: checklistModel } );
+
 	$(document).ready( function() {
-
-		console.log( fusionPostChecklistData );
-
-		var checklistItems = new self.collections.items( fusionPostChecklistData.items );
-
-		var checklistModel = new self.models.checklist( { items: checklistItems } );
-		var checklistView  = new self.views.checklist( { model: checklistModel } );
-
 		checklistView.render().$el.prependTo( $( '#major-publishing-actions' ) );
+	});
 
-		window.fusionPostChecklist.view = checklistView;
-
-	} );
+	window.fusionPostChecklist.addItem = function( item ) {
+		var items = checklistView.model.get( 'items' );
+		items.add( item  );
+	};
 
 })( jQuery, window );

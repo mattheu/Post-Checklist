@@ -1,31 +1,6 @@
 <?php
 
 /**
- * Register checklist items.
- */
-add_filter( 'fpc_items', function( $items ) {
-
-	$items[] = array(
-		'label' => 'Has at least 3 terms.',
-		'test'  => 'fpcTestNarratives',
-	);
-
-	$items[] = array(
-		'label' => 'Has post featured iamge.',
-		'test'  => 'fpcTestFeaturedImage',
-	);
-
-	$items[] = array(
-		'label'   => 'Content between 500 and 1500 words.',
-		'test'    => 'fpcTestContentLength',
-		// 'blocker' => false,
-	);
-
-	return $items;
-
-});
-
-/**
  * Output the FPC tests.
  */
 add_action( 'fpc_scripts', function() {
@@ -34,28 +9,41 @@ add_action( 'fpc_scripts', function() {
 
 <script type="text/javascript">
 
-	var fpcTestNarratives = function( post ) {
+jQuery( document).ready( function() {
 
-		var count = 0;
-		var terms = post.get('terms');
+	window.fusionPostChecklist.addItem({
+		'label': 'Must have at least 3 narratives.',
+		test: function( post ) {
 
-		for ( var tax in terms ) {
-			count += terms[tax].length;
+			var count = 0;
+			var terms = post.get('terms');
+
+			for ( var tax in terms ) {
+				count += terms[tax].length;
+			}
+
+			return count >= 3;
+
+		},
+	});
+
+	window.fusionPostChecklist.addItem( {
+		'label':  'Has post featured iamge.',
+		'test': function( post ) {
+			return post.get('featured_image') ? true : false;
 		}
+	} );
 
-		return count >= 3;
+	window.fusionPostChecklist.addItem( {
+		'label': 'Content between 500 and 1500 words.',
+		'test': function( post ) {
+			var content = post.get('content') || '';
+			var length  = content.split(' ').length;
+			return ( length > 500 && length < 1500 ) ? true : false;
+		}
+	} );
 
-	}
-
-	var fpcTestFeaturedImage = function( post ) {
-		return post.get('featured_image') ? true : false;
-	}
-
-	var fpcTestContentLength = function( post ) {
-		var content = post.get('content') || '';
-		var length  = content.split(' ').length;
-		return ( length > 500 && length < 1500 ) ? true : false;
-	}
+} );
 
 </script>
 

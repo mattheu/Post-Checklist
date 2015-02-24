@@ -36,13 +36,6 @@ function action_admin_enqueue_scripts( $hook ) {
 		'fpc',
 		'fusionPostChecklistData',
 		array(
-			/**
-			 * Register items using the fpc_items filter.
-			 * Required args
-			 * - label - item description.
-			 * - test - a JS function that will be called
-			 */
-			'items'   => apply_filters( 'fpc_items', array() ),
 			'strings' => array(
 				'title' => __( 'Post Publish Checklist', 'fpc' ),
 			),
